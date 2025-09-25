@@ -1,16 +1,23 @@
 [
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "NetflixData.html",
+    "href": "NetflixData.html",
+    "title": "Netflix Data",
     "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
+    "text": "Sources:\n TidyTuesday Data \n Netflix Engagement Report \n\n\n\nshow code\nlibrary(tidyverse)\n\n\n\n\nshow code\nmovies &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-07-29/movies.csv')\nshows &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-07-29/shows.csv')\n\n\n\n\nshow code\nlibrary(dplyr)\nlibrary(ggplot2)\n\n\n\n\nshow code\nshows |&gt; \n  filter(release_date &gt;= as.Date(\"2024-01-01\") & release_date &lt;= as.Date(\"2024-12-31\")) |&gt; \n  arrange(desc(hours_viewed)) |&gt; \n  slice(1:10) |&gt; \n  \n  ggplot(aes(x = release_date, y = hours_viewed)) + \n    geom_point(size = 2) + \n    labs(\n      title = \"Top 10 Netflix Shows Released in 2024: Hours Viewed vs Release Date\",\n      x = \"Release Date\",\n      y = \"Hours Viewed\"\n    )"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Evelyn-Salgado.github.io",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About Me",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+    "text": "Hi, there! I’m Evelyn, a current junior at Pomona College studying Economics with minors in Data Science and French. Outside of academics, I enjoy playing volleyball and going on runs!"
+  },
+  {
+    "objectID": "IncomeInequality.html",
+    "href": "IncomeInequality.html",
+    "title": "Income Inequality",
+    "section": "",
+    "text": "Sources:\n TidyTuesday Data \n Ourworld Data \n\n\n\nshow code\nlibrary(tidyverse)\n\n\n\n\nshow code\nincome_inequality_processed &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-08-05/income_inequality_processed.csv')\nincome_inequality_raw &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-08-05/income_inequality_raw.csv')\n\n\n\n\nshow code\nggplot(income_inequality_processed, aes(x = gini_mi_eq)) +\n  geom_histogram(binwidth = 0.05, fill = \"blue\", color = \"white\", na.rm = TRUE) +\n  labs(\n    title = \"Distribution of Pre-Tax Income Inequality Across Countries\",\n    x = \"Gini Coefficient (Pre-Tax, Equivalized Income)\",\n    y = \"Number of Countries\"\n  )"
   }
 ]

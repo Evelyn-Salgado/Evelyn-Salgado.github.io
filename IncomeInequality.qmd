@@ -1,0 +1,46 @@
+---
+title: "Income Inequality"
+description: |
+  Analysis of Income Inequality Before and After Taxes data from TidyTuesday. 
+  This dataset contains cross-country measures of income inequality over time utilizing the Gini coeeffficent. The Gini coefficient ranges from 0 (perfect equality) to 1 (perfect inequality). This dataset includes both pre-tax and post-tax income, adjusted for household sharing of resources (equivalized).
+
+author: "Evelyn Salgado"
+date: September 24, 2025
+format: 
+  html:
+    code-fold: true
+    code-summary: "show code"
+editor: visual 
+execute: 
+  warning: false
+  message: false
+---
+
+Sources: 
+
+<a href = "https://github.com/rfordatascience/tidytuesday/tree/main/data/2025/2025-08-05" > TidyTuesday Data </a> 
+
+<a href = "https://ourworldindata.org/income-inequality-before-and-after-taxes" > Ourworld Data </a> 
+
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+income_inequality_processed <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-08-05/income_inequality_processed.csv')
+income_inequality_raw <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-08-05/income_inequality_raw.csv')
+
+```
+
+```{r}
+ggplot(income_inequality_processed, aes(x = gini_mi_eq)) +
+  geom_histogram(binwidth = 0.05, fill = "blue", color = "white", na.rm = TRUE) +
+  labs(
+    title = "Distribution of Pre-Tax Income Inequality Across Countries",
+    x = "Gini Coefficient (Pre-Tax, Equivalized Income)",
+    y = "Number of Countries"
+  )
+
+```

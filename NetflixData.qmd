@@ -1,0 +1,55 @@
+---
+title: "Netflix Data"
+description: | 
+  Analysis of  data from TidyTuesday. 
+  This dataset includes Netflix's public Engement Reports from late 2023 to the first half of 2025. It records global and regional viewing trends for movies and shows, including release dates, hours viewed, runtime, and whether titles were available worldwide. All together, this data allows for an exploration of how different variables affect the viewership of a show or movie.   
+author: "Evelyn Salgado"
+date: September 24, 2025
+format: 
+  html:
+    code-fold: true
+    code-summary: "show code"
+editor: visual 
+execute: 
+  warning: false
+  message: false
+---
+
+
+Sources: 
+
+<a href = "https://github.com/rfordatascience/tidytuesday/tree/main/data/2025/2025-07-29" > TidyTuesday Data </a> 
+
+<a href = "https://about.netflix.com/en/news/what-we-watched-the-first-half-of-2025" > Netflix Engagement Report </a> 
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+movies <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-07-29/movies.csv')
+shows <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-07-29/shows.csv')
+```
+
+```{r}
+library(dplyr)
+library(ggplot2)
+```
+
+```{r}
+
+shows |> 
+  filter(release_date >= as.Date("2024-01-01") & release_date <= as.Date("2024-12-31")) |> 
+  arrange(desc(hours_viewed)) |> 
+  slice(1:10) |> 
+  
+  ggplot(aes(x = release_date, y = hours_viewed)) + 
+    geom_point(size = 2) + 
+    labs(
+      title = "Top 10 Netflix Shows Released in 2024: Hours Viewed vs Release Date",
+      x = "Release Date",
+      y = "Hours Viewed"
+    )
+
+```

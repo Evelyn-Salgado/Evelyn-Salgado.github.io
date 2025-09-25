@@ -1,9 +1,5 @@
 ---
-title: "About"
+title: "About Me"
 ---
 
-About this site
-
-```{r}
-1 + 1
-```
+Hi, there! I'm Evelyn, a current junior at Pomona College studying Economics with minors in Data Science and French. Outside of academics, I enjoy playing volleyball and going on runs!
