@@ -16,13 +16,13 @@ execute:
   message: false
 ---
 
-Sources: 
+Sources:
 
-<a href = "https://github.com/rfordatascience/tidytuesday/tree/main/data/2025/2025-08-05" > TidyTuesday Data </a> 
+<a href = "https://github.com/rfordatascience/tidytuesday/tree/main/data/2025/2025-08-05" > TidyTuesday Data </a>
 
-<a href = "https://ourworldindata.org/income-inequality-before-and-after-taxes" > Ourworld Data </a> 
+<a href = "https://ourworldindata.org/income-inequality-before-and-after-taxes" > Ourworld Data </a>
 
----
+------------------------------------------------------------------------
 
 ```{r}
 library(tidyverse)

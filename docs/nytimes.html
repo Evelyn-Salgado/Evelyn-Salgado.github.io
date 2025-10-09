@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Evelyn Salgado">
-<meta name="dcterms.date" content="2025-09-24">
-<meta name="description" content="Analysis of Income Inequality Before and After Taxes data from TidyTuesday. This dataset contains cross-country measures of income inequality over time utilizing the Gini coeeffficent. The Gini coefficient ranges from 0 (perfect equality) to 1 (perfect inequality). This dataset includes both pre-tax and post-tax income, adjusted for household sharing of resources (equivalized).">
+<meta name="dcterms.date" content="2025-10-08">
+<meta name="description" content="The data set “NYTimes” is a sample collection of 3104 headlines from The New York Times, compiled by Professor Amber E. Boydstun at the University of California, Davis. The data set includes each headline’s date, title, manually classified subject, and topic code. The data set spans across 1996-2006, providing a glimpse into how The New York Times presented and categorized news stories.">
 
-<title>Income Inequality</title>
+<title>NYT Article Data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -166,12 +166,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Income Inequality</h1>
+<h1 class="title">NYT Article Data</h1>
 </div>
 
 <div>
   <div class="description">
-    <p>Analysis of Income Inequality Before and After Taxes data from TidyTuesday. This dataset contains cross-country measures of income inequality over time utilizing the Gini coeeffficent. The Gini coefficient ranges from 0 (perfect equality) to 1 (perfect inequality). This dataset includes both pre-tax and post-tax income, adjusted for household sharing of resources (equivalized).</p>
+    <p>The data set “NYTimes” is a sample collection of 3104 headlines from <em>The New York Times,</em> compiled by Professor Amber E. Boydstun at the University of California, Davis. The data set includes each headline’s date, title, manually classified subject, and topic code. The data set spans across 1996-2006, providing a glimpse into how <em>The New York Times</em> presented and categorized news stories.</p>
   </div>
 </div>
 
@@ -188,7 +188,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 24, 2025</p>
+      <p class="date">October 8, 2025</p>
     </div>
   </div>
   
@@ -200,42 +200,154 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Sources:</p>
-<p><a href="https://github.com/rfordatascience/tidytuesday/tree/main/data/2025/2025-08-05"> TidyTuesday Data </a></p>
-<p><a href="https://ourworldindata.org/income-inequality-before-and-after-taxes"> Ourworld Data </a></p>
-<hr>
+<p><strong>Analysis 1: How Often Are Female and Male Terms Used in NYT Articles?</strong></p>
 <div class="cell">
 <details class="code-fold">
 <summary>show code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RTextTools) </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(NYTimes)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>NYTimes <span class="ot">&lt;-</span> NYTimes <span class="sc">|&gt;</span> </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Title =</span> <span class="fu">as.character</span>(Title),</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Subject =</span> <span class="fu">as.character</span>(Subject)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+</div>
+<p>Tibble below counts the number of times female terms or male terms are found in the data set’s headlines:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>show code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>nyt_obj <span class="ot">&lt;-</span> NYTimes <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Date, Title, Subject) <span class="sc">|&gt;</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Title)) <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title_subj =</span> <span class="fu">str_to_lower</span>(<span class="fu">str_c</span>(Title, Subject, <span class="at">sep =</span> <span class="st">" "</span>))</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>fem_names <span class="ot">&lt;-</span> <span class="st">"</span><span class="sc">\\</span><span class="st">b(woman | women | girl | girls | female | females)</span><span class="sc">\\</span><span class="st">b"</span> </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>male_names <span class="ot">&lt;-</span> <span class="st">"</span><span class="sc">\\</span><span class="st">b(men | man | males | males | boy | boys)</span><span class="sc">\\</span><span class="st">b"</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>nyt_obj <span class="ot">&lt;-</span> nyt_obj <span class="sc">|&gt;</span> </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">fem_mentioned =</span> <span class="fu">str_detect</span>(title_subj, fem_names) ,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">male_mentioned =</span> <span class="fu">str_detect</span>(title_subj, male_names)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>counts_mentions <span class="ot">&lt;-</span> nyt_obj <span class="sc">|&gt;</span> </span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">fem_count =</span> <span class="fu">sum</span>(fem_mentioned), </span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">male_count =</span> <span class="fu">sum</span>(male_mentioned)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">everything</span>(), </span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"gender"</span>,</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"count"</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>               ) </span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>counts_mentions </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  gender     count
+  &lt;chr&gt;      &lt;int&gt;
+1 fem_count     25
+2 male_count    28</code></pre>
+</div>
 </div>
 <div class="cell">
 <details class="code-fold">
 <summary>show code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>income_inequality_processed <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-08-05/income_inequality_processed.csv'</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>income_inequality_raw <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-08-05/income_inequality_raw.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell">
-<details class="code-fold">
-<summary>show code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(income_inequality_processed, <span class="fu">aes</span>(<span class="at">x =</span> gini_mi_eq)) <span class="sc">+</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.05</span>, <span class="at">fill =</span> <span class="st">"blue"</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution of Pre-Tax Income Inequality Across Countries"</span>,</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Gini Coefficient (Pre-Tax, Equivalized Income)"</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Number of Countries"</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>counts_mentions <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span> gender, <span class="at">y =</span> count, <span class="at">fill =</span> gender)) <span class="sc">+</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Mentions of Gendered Terms in NYT Article Titles 1996-2006"</span>, </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Gender Mentioned"</span> ,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Number of Mentions"</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> <span class="fu">theme_light</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="IncomeInequality_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="nytimes_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
+<p><strong>Data Process</strong>: This graph demonstrates how many times female or male gendered terms appeared in the data set (which contains 3104 articles total). The graph is a product of wrangling the data set such that key words “woman, women, girl, girls, female, females” are regarded as female terms and male terms include “men, man, males, males, boy, boys.” These gendered keywords are looked for in both the Titles and Subjects of each article. After identifying how many times female or male terms are detected in the data set articles, they are displayed in the column graph above.</p>
+<p>To better understand what these counts mean relative to the data set, the next step is to take the proportion of articles that mention female, male, and both. The data wrangling for this is in the code below and it’s results displayed in the graph below.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>show code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>prop_mentions <span class="ot">&lt;-</span> nyt_obj <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_articles =</span> <span class="fu">n</span>(),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">fem_articles =</span> <span class="fu">sum</span>(fem_mentioned, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">male_articles =</span> <span class="fu">sum</span>(male_mentioned, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">both_articles =</span> <span class="fu">sum</span>(fem_mentioned <span class="sc">&amp;</span> male_mentioned, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_longer</span>(</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(fem_articles, male_articles, both_articles),</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"category"</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"count"</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">proportion =</span> count <span class="sc">/</span> total_articles) </span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(prop_mentions, <span class="fu">aes</span>(<span class="at">x=</span> category, <span class="at">y =</span> proportion, <span class="at">fill =</span> category)) <span class="sc">+</span> <span class="fu">geom_col</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>         <span class="fu">labs</span>(</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Porportion of NYT Articles Mentioning Gendered Terms (1996-2006)"</span>,</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="st">"Gender Mentions"</span>,</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="st">"Proportion of All Articles"</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span> <span class="fu">theme_light</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="nytimes_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The graph above shows the proportion of articles from the New York Times that used gendered terms between 1996-2006. To find this proportion, I used the previously wrangled data to calculate each genders’ mentions proportional to the total number of articles in the data set.</p>
+<p><strong>Graph Analysis 1</strong>: Between the span of the data set (1996-2006), headlines in *The New York Times* show a subtle but consistent gender imbalance. The proportion of articles mentioning men (0.0090) is slightly higher than the proportion of articles mentioning women (0.0080), while the proportion of headlines referencing both (0.0032) is relatively rare. While the differences are small, this suggests that articles that referenced females and/or males were rare, such that, once added, only about 2% of articles mentioned gender. The remaining 98% made no explicit mention of gender, or at least no mention of the keywords. This suggests that most coverage was focused on topics where gender wasn’t mentioned in the headline and/or subject. A possible reason for this maybe the political and global focus of the era, dominated by events such as 9/11 attacks and the wars in the middle east. The era’s coverage thus likely centered around conflict, policy, and international affairs rather than gendered narratives such as those including social trends, lifestyle, etc.</p>
+<p><strong>Analysis 2: Do headlines mentioning gender tend to be longer or shorter than those that don’t?</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>show code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>NYTimes_lengths <span class="ot">&lt;-</span> nyt_obj <span class="sc">|&gt;</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">title_length =</span> <span class="fu">str_count</span>( Title, <span class="st">"</span><span class="sc">\\</span><span class="st">S+"</span>),</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">gender_mentioned =</span> fem_mentioned <span class="sc">|</span> male_mentioned)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>gender_lengths <span class="ot">&lt;-</span> NYTimes_lengths <span class="sc">|&gt;</span> </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(gender_mentioned) <span class="sc">|&gt;</span> </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_length =</span> <span class="fu">mean</span>(title_length))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>show code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>NYTimes_lengths <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> gender_mentioned, <span class="at">y =</span> title_length, <span class="at">fill =</span> gender_mentioned)) <span class="sc">+</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Title Lengths: With Gender Mentions vs. Without"</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Gender Mention"</span>, </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Title Length (words count) "</span> </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>       ) <span class="sc">+</span> <span class="fu">theme_light</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="nytimes_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Graph Analysis 2:</strong> This graph shows that headlines mentioning gender (male, female, and both) tended to be slightly longer, averaging about 8.9 words per title compared to 8.2 words per title for those <em>without</em> gender mentions. The median length is also higher for gendered headlines, showing a small but consistent pattern. The range and presence of outliers (including some headlines that are more than 20 words) indicate that a few gendered headlines require substantially more context or description. This suggest that when gender was mentioned, <em>The New York Times</em> felt it was necessary to provide more context or descriptive verbiage. This may have been done to reflect additional nuance in gender-related topics, for example, a headline like ’<em>Politics: The Democrat; Clinton Campaigns Puts an Emphasis on Women’</em> (1996) uses ten words, requiring additional language to emphasize both its gendered focus and its political context. Overall, this suggests that gendered headlines, even if fewer in number within the data set, tend to include more context or detail than non-gendered ones.</p>
 
 
 

@@ -11,11 +11,14 @@ website:
       - about.qmd
       - text: "Data Viz"
         menu: 
-          - text: "Income Inequality"
+          - text: "Project 1 - Income Inequality"
             href: IncomeInequality.html
-          - text: "Netflix"
+          - text: "Project 1 - Netflix"
             href: NetflixData.html
-
+          - text: "Project 2 - NYT Data"
+            href: nytimes.html
+          
+          
 format:
   html:
     theme:
