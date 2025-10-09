@@ -20,12 +20,6 @@ Boydstun, A. E. (n.d.). *NYTimes dataset* University of California, Davis. Retri
 
 `<a href = "`{=html}<http://www.amberboydstun.com/>`" >`{=html} R Data Source </a>
 
-```{r}
-
-?NYTimes
-data(NYTimes)
-```
-
 **Analysis 1: How Often Are Female and Male Terms Used in NYT Articles?**
 
 ```{r}
