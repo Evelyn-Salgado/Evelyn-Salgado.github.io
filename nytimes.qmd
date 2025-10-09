@@ -1,7 +1,7 @@
 ---
 title: "NYT Article Data"
 description: | 
-  The data set "NYTimes" is a sample collection of 3104 headlines from *The New York Times,* compiled by Professor Amber E. Boydstun at the University of California, Davis. The data set includes each headline's date, title, manually classified subject, and topic code. The data set spans across 1996-2006, providing a glimpse into how *The New York Times* presented and categorized news stories. 
+  The data set *NYTimes* is a built-in sample dataset in the RTextTools package. It is a collection of 3104 headlines from *The New York Times,* compiled by Professor Amber E. Boydstun at the University of California, Davis. The data set includes each headline's date, title, manually classified subject, and topic code. The data set spans across 1996-2006, providing a glimpse into how *The New York Times* presented and categorized news stories. 
 author: "Evelyn Salgado"
 date: "October 8, 2025"
 format: 
@@ -13,6 +13,18 @@ execute:
   warning: false
   message: false
 ---
+
+**Citation**:
+
+Boydstun, A. E. (n.d.). *NYTimes dataset* University of California, Davis. Retrieved from <http://www.amberboydstun.com/>
+
+`<a href = "`{=html}<http://www.amberboydstun.com/>`" >`{=html} R Data Source </a>
+
+```{r}
+
+?NYTimes
+data(NYTimes)
+```
 
 **Analysis 1: How Often Are Female and Male Terms Used in NYT Articles?**
 
@@ -135,3 +147,49 @@ ggplot(aes(x = gender_mentioned, y = title_length, fill = gender_mentioned)) +
 ```
 
 **Graph Analysis 2:** This graph shows that headlines mentioning gender (male, female, and both) tended to be slightly longer, averaging about 8.9 words per title compared to 8.2 words per title for those *without* gender mentions. The median length is also higher for gendered headlines, showing a small but consistent pattern. The range and presence of outliers (including some headlines that are more than 20 words) indicate that a few gendered headlines require substantially more context or description. This suggest that when gender was mentioned, *The New York Times* felt it was necessary to provide more context or descriptive verbiage. This may have been done to reflect additional nuance in gender-related topics, for example, a headline like '*Politics: The Democrat; Clinton Campaigns Puts an Emphasis on Women'* (1996) uses ten words, requiring additional language to emphasize both its gendered focus and its political context. Overall, this suggests that gendered headlines, even if fewer in number within the data set, tend to include more context or detail than non-gendered ones.
+
+**Final Analysis: What are the top 5 words that follow after "woman"?**
+
+```{r}
+
+after_women <- nyt_obj |> 
+  mutate(
+    word_after_woman = str_extract(
+      title_subj,
+      "(?<=\\bwomen\\s)\\w+"
+    )
+  )
+
+after_women |> 
+  filter(!is.na(word_after_woman)) |> 
+  select(word_after_woman, title_subj) |> 
+  count(word_after_woman, sort = TRUE) |> 
+  arrange(desc(n)) |> 
+  head(5)
+  
+
+```
+
+**So, what comes after the "women in"..?**
+
+```{r}
+after_women_in <- nyt_obj |> 
+  mutate(
+  after_in = str_extract(
+  title_subj, 
+  "(?<=\\bwomen\\sin\\s)\\w+"
+  )  
+  )
+
+after_women_in |> 
+  filter(!is.na(after_in)) |> 
+  select(after_in, title_subj) |> 
+  count(after_in, sort = TRUE) |> 
+  arrange(desc(n))
+
+
+```
+
+**Analysis 3**: Building on analyses 1 and 2, which showed that gendered terms are rare but lengthen headlines by a bit, the words that follow the word "women" reveal additonal context. Admittedly, one could run the code for every single term that was categorized as a female term, but for this analysis, I chose to just examine the words that came after "women."
+
+The most common word after "women" is "in", often referring to places or institutions, such as "Africa", "France", or "military." While this does not capture all female terms, it suggests that in this small sample of headlines, when women are mentioned, it is frequently in relation to locations. This aligns with analyses 1 and 2, where topics were noted to be mostly political and few were gendered, likely reflecting the era’s political focus.
