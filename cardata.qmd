@@ -1,0 +1,96 @@
+---
+title: "Car Classes and Fuel Efficeny"
+description: | 
+  This project utilizes the *Car Specifications and Performance* dataset from Kaggle, which includes 550 car models and their key performance metrics, such as fuel efficeny in different settings, car class, fuel type, drivetrain, and more, and focuses on gasoline cars due to the limited number of hybrid and electric models in the dataset. The goal of this simulation project is to examine whether smaller cars tend to have higher fuel efficiency than larger cars using a permutation test. 
+author: "Evelyn Salgado"
+date: "October 29, 2025"
+format: 
+  html:
+    code-fold: true
+    code-summary: "show code"
+editor: visual 
+execute: 
+  warning: false
+  message: false
+---
+
+**Citations**
+
+Arslaan, M. (2024). Explore car performance & fuel efficiency data \[Dataset\]. Kaggle. Retrieved from <https://www.kaggle.com/datasets/arslaan5/explore-car-performance-fuel-efficiency-data>
+
+<a href = "https://www.kaggle.com/datasets/arslaan5/explore-car-performance-fuel-efficiency-data" > Kaggle Data Source </a>
+
+**Motivation**
+
+As a college student that will likely be purchasing a car in the next few years, I want to make an informed decisions about fuel efficiency and long-term value. Given rising gas prices and environmental concerns, I am curious how different car classes (compact cars, SUV's, etc) compare in terms of combined fuel efficency. These differences can help me chose a vehicle that balances performance, cost, and sustainability.
+
+**What I Plan To Do**:Using the dataset, *Car Specifications and Performance Data* from Kaggle, I will examine whether smaller cars are more fuel efficient than larger ones. I will begin by visualizing the combined (highway and city) miles per gallon (MPG) across two main car types (small and large) to see the general trends in efficiency. Next, I will calculate the difference in mean MPG between the car types to understand how much more or less efficient one group is compared to the pther. Finally, I will perform a permutation test to evaluate whether the observed difference is statistically significant or if it could have occurred by chance.
+
+**Research Question: Do small cars have a higher combined (highway and city) MPG than large cars?**
+
+**Null Hypothesis (H0)**: Car size has no effect on combined MPG.
+
+**Alternative Hypothesis (HA)**: Small cars and large cars have different combined MPG.
+
+```{r}
+library(tidyverse)
+library(ggplot2) 
+
+car_data <- read.csv("car_data.csv")  
+```
+
+```{r}
+library(tidyverse) 
+
+small_class <- c("compact car", "midsize car", "minicompact car", "subcompact car", "midsize station wagon", "small station wagon", "two seater") 
+
+large_class <- c("large car", "minivan", "small pickup truck", "standard pickup truck", "small sport utility vehicle", "standard sport utility vehicle")  
+
+cars_clean <- car_data |> 
+  filter(fuel_type == "gas", !is.na(combination_mpg), !is.na(class)) |> 
+  mutate(car_type = if_else(class %in% small_class, "small", "large"))
+
+ggplot(cars_clean, aes(x = car_type, y = combination_mpg, fill = car_type)) + geom_boxplot() + 
+  labs(title = "Combined MPG by Car Class Type", 
+       x = "Car Type", 
+       y = "Combined MPG") + theme(legend.position = "none")
+
+```
+
+**Boxplot:** This boxplot compares the Combined MPG (an average of city and highway fuel efficiency) between small and large cars. The *car_type* variable groups car classes into "small" and "large", and the plot shows the distributions, median, and outliers of MPG for each car type group. This helps to visualize which car type tends to be more fuel-efficient.
+
+**Next step:** I will calculate the p-value to asses the probability that the **observed difference of 1.42** occurred by chance, and use a permutation test to determine whether this difference between small and large cars is statistically significant.
+
+```{r}
+library(tidyverse) 
+set.seed(47) 
+
+perm_null <- function(data) {
+  shuffled <- data |> mutate(car_type = sample(car_type))
+  diff <- mean(shuffled$combination_mpg[shuffled$car_type == "small"]) -
+          mean(shuffled$combination_mpg[shuffled$car_type == "large"])
+  return(diff)
+}
+
+perm_null_results <- map_dbl(1:1000, ~ perm_null(cars_clean))  
+
+obs_diff <- mean(cars_clean$combination_mpg[cars_clean$car_type == "small"]) - 
+  mean(cars_clean$combination_mpg[cars_clean$car_type == "large"]) 
+
+
+p_value <- mean(abs(perm_null_results) >= abs(obs_diff)) 
+
+ggplot(data.frame(diff = perm_null_results), aes(x = diff)) +
+  geom_histogram(bins = 30, fill = "lightblue" , color = "black") + geom_vline(xintercept = obs_diff, color = "red", linewidth = 1) +
+  labs(title = "Permutation Test: Null Distribution of Mean Differences", 
+       subtitle = "Based on 1,000 shuffles of Car Type labels, P-value = 0.003", 
+       x = "Difference in Mean MPG (Small - Large)",
+       y = "Frequency") + theme_minimal()
+
+```
+
+**Histogram:** This histogram demonstrates the distribution of mean MPG (miles-per-gallon) differences between small and large cars under 1,000 random shuffles of car types. The observed difference of 1.42 MPG is marked with the red vertical line. This visualizes the differences we'd expected by chance alone if car size had no effect on MPG (null hypothesis).
+
+**Interpretation**: The observed difference in mean MPG between small and large cars was 1.42, while the permutation test produced a **p-value of 0.003**. While the null hypothesis stated that car size has no effect on MPG and any observed difference is due to random chance, the low p-value (below 0.01) provides very strong evidence against the null hypothesis, suggesting that car size does indeed have a statistically significant effect on fuel efficiency.
+
+**Wrap-up:** For my analysis, I compared the fuel efficiency (combined MPG) of small and large cars using data from the *Car Specifications and Performance Data* dataset. After categorizing the data (deciding which car classes were "small" and which were "large"), I visualized the difference in MPG between the two groups with a boxplot. I then conducted a permutation test with 1,000 random shuffles to assess whether the observed difference in mean MPG could be due to chance. The results provided strong evidence against the null hypothesis, suggesting that the difference in fuel efficiency between small and large cars is unlikely to be due to random variation. This information can help consumers like myself make more informed decisions when choosing a car that offers better long-term fuel efficiency.

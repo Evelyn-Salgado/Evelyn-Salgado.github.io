@@ -17,6 +17,8 @@ website:
             href: NetflixData.html
           - text: "Project 2 - NYT Data"
             href: nytimes.html
+          - text: "Project 3 - Car Data"
+            href: cardata.html
           
           
 format:

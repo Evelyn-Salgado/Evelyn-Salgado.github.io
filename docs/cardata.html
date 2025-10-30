@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Evelyn Salgado">
+<meta name="dcterms.date" content="2025-10-29">
+<meta name="description" content="This project utilizes the Car Specifications and Performance dataset from Kaggle, which includes 550 car models and their key performance metrics, such as fuel efficeny in different settings, car class, fuel type, drivetrain, and more, and focuses on gasoline cars due to the limited number of hybrid and electric models in the dataset. The goal of this simulation project is to examine whether smaller cars tend to have higher fuel efficiency than larger cars using a permutation test.">
 
-<title>Evelyn Salgado</title>
+<title>Car Classes and Fuel Efficeny</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -33,6 +70,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
@@ -70,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -83,7 +121,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -124,33 +162,137 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
+    </div>
 <!-- main -->
-<div class="quarto-about-jolla">
-  <img src="IMG_2359.jpeg" class="about-image
-  round " style="height: 15em; width: 15em;">
- <header id="title-block-header" class="quarto-title-block default">
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Evelyn Salgado</h1>
+<h1 class="title">Car Classes and Fuel Efficeny</h1>
 </div>
-<div class="quarto-title-meta">
+
+<div>
+  <div class="description">
+    <p>This project utilizes the <em>Car Specifications and Performance</em> dataset from Kaggle, which includes 550 car models and their key performance metrics, such as fuel efficeny in different settings, car class, fuel type, drivetrain, and more, and focuses on gasoline cars due to the limited number of hybrid and electric models in the dataset. The goal of this simulation project is to examine whether smaller cars tend to have higher fuel efficiency than larger cars using a permutation test.</p>
   </div>
-</header><main class="content" id="quarto-document-content">
+</div>
 
 
-</main> 
-  <hr class="about-sep">
-   <div class="about-links">
-  <a href="https://www.linkedin.com/in/evelyn-salgado-chicago/" class="about-link" rel="" target="">
-     <span class="about-link-text">LinkedIn</span>
-  </a>
-  <a href="https://github.com/Evelyn-Salgado" class="about-link" rel="" target="">
-    <i class="bi bi-github"></i>
-     <span class="about-link-text">Github</span>
-  </a>
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Evelyn Salgado </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 29, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Citations</strong></p>
+<p>Arslaan, M. (2024). Explore car performance &amp; fuel efficiency data [Dataset]. Kaggle. Retrieved from <a href="https://www.kaggle.com/datasets/arslaan5/explore-car-performance-fuel-efficiency-data" class="uri">https://www.kaggle.com/datasets/arslaan5/explore-car-performance-fuel-efficiency-data</a></p>
+<p><a href="https://www.kaggle.com/datasets/arslaan5/explore-car-performance-fuel-efficiency-data"> Kaggle Data Source </a></p>
+<p><strong>Motivation</strong></p>
+<p>As a college student that will likely be purchasing a car in the next few years, I want to make an informed decisions about fuel efficiency and long-term value. Given rising gas prices and environmental concerns, I am curious how different car classes (compact cars, SUV’s, etc) compare in terms of combined fuel efficency. These differences can help me chose a vehicle that balances performance, cost, and sustainability.</p>
+<p><strong>What I Plan To Do</strong>:Using the dataset, <em>Car Specifications and Performance Data</em> from Kaggle, I will examine whether smaller cars are more fuel efficient than larger ones. I will begin by visualizing the combined (highway and city) miles per gallon (MPG) across two main car types (small and large) to see the general trends in efficiency. Next, I will calculate the difference in mean MPG between the car types to understand how much more or less efficient one group is compared to the pther. Finally, I will perform a permutation test to evaluate whether the observed difference is statistically significant or if it could have occurred by chance.</p>
+<p><strong>Research Question: Do small cars have a higher combined (highway and city) MPG than large cars?</strong></p>
+<p><strong>Null Hypothesis (H0)</strong>: Car size has no effect on combined MPG.</p>
+<p><strong>Alternative Hypothesis (HA)</strong>: Small cars and large cars have different combined MPG.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>show code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>car_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"car_data.csv"</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>show code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>small_class <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"compact car"</span>, <span class="st">"midsize car"</span>, <span class="st">"minicompact car"</span>, <span class="st">"subcompact car"</span>, <span class="st">"midsize station wagon"</span>, <span class="st">"small station wagon"</span>, <span class="st">"two seater"</span>) </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>large_class <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"large car"</span>, <span class="st">"minivan"</span>, <span class="st">"small pickup truck"</span>, <span class="st">"standard pickup truck"</span>, <span class="st">"small sport utility vehicle"</span>, <span class="st">"standard sport utility vehicle"</span>)  </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>cars_clean <span class="ot">&lt;-</span> car_data <span class="sc">|&gt;</span> </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(fuel_type <span class="sc">==</span> <span class="st">"gas"</span>, <span class="sc">!</span><span class="fu">is.na</span>(combination_mpg), <span class="sc">!</span><span class="fu">is.na</span>(class)) <span class="sc">|&gt;</span> </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">car_type =</span> <span class="fu">if_else</span>(class <span class="sc">%in%</span> small_class, <span class="st">"small"</span>, <span class="st">"large"</span>))</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cars_clean, <span class="fu">aes</span>(<span class="at">x =</span> car_type, <span class="at">y =</span> combination_mpg, <span class="at">fill =</span> car_type)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Combined MPG by Car Class Type"</span>, </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Car Type"</span>, </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Combined MPG"</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="cardata_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
 </div>
- <!-- /main -->
+</div>
+<p><strong>Boxplot:</strong> This boxplot compares the Combined MPG (an average of city and highway fuel efficiency) between small and large cars. The <em>car_type</em> variable groups car classes into “small” and “large”, and the plot shows the distributions, median, and outliers of MPG for each car type group. This helps to visualize which car type tends to be more fuel-efficient.</p>
+<p><strong>Next step:</strong> I will calculate the p-value to asses the probability that the <strong>observed difference of 1.42</strong> occurred by chance, and use a permutation test to determine whether this difference between small and large cars is statistically significant.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>show code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">47</span>) </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>perm_null <span class="ot">&lt;-</span> <span class="cf">function</span>(data) {</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  shuffled <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">car_type =</span> <span class="fu">sample</span>(car_type))</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  diff <span class="ot">&lt;-</span> <span class="fu">mean</span>(shuffled<span class="sc">$</span>combination_mpg[shuffled<span class="sc">$</span>car_type <span class="sc">==</span> <span class="st">"small"</span>]) <span class="sc">-</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mean</span>(shuffled<span class="sc">$</span>combination_mpg[shuffled<span class="sc">$</span>car_type <span class="sc">==</span> <span class="st">"large"</span>])</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(diff)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>perm_null_results <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, <span class="sc">~</span> <span class="fu">perm_null</span>(cars_clean))  </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>obs_diff <span class="ot">&lt;-</span> <span class="fu">mean</span>(cars_clean<span class="sc">$</span>combination_mpg[cars_clean<span class="sc">$</span>car_type <span class="sc">==</span> <span class="st">"small"</span>]) <span class="sc">-</span> </span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(cars_clean<span class="sc">$</span>combination_mpg[cars_clean<span class="sc">$</span>car_type <span class="sc">==</span> <span class="st">"large"</span>]) </span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">abs</span>(perm_null_results) <span class="sc">&gt;=</span> <span class="fu">abs</span>(obs_diff)) </span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">diff =</span> perm_null_results), <span class="fu">aes</span>(<span class="at">x =</span> diff)) <span class="sc">+</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">"lightblue"</span> , <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> obs_diff, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Permutation Test: Null Distribution of Mean Differences"</span>, </span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Based on 1,000 shuffles of Car Type labels, P-value = 0.003"</span>, </span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Difference in Mean MPG (Small - Large)"</span>,</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Frequency"</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="cardata_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Histogram:</strong> This histogram demonstrates the distribution of mean MPG (miles-per-gallon) differences between small and large cars under 1,000 random shuffles of car types. The observed difference of 1.42 MPG is marked with the red vertical line. This visualizes the differences we’d expected by chance alone if car size had no effect on MPG (null hypothesis).</p>
+<p><strong>Interpretation</strong>: The observed difference in mean MPG between small and large cars was 1.42, while the permutation test produced a <strong>p-value of 0.003</strong>. While the null hypothesis stated that car size has no effect on MPG and any observed difference is due to random chance, the low p-value (below 0.01) provides very strong evidence against the null hypothesis, suggesting that car size does indeed have a statistically significant effect on fuel efficiency.</p>
+<p><strong>Wrap-up:</strong> For my analysis, I compared the fuel efficiency (combined MPG) of small and large cars using data from the <em>Car Specifications and Performance Data</em> dataset. After categorizing the data (deciding which car classes were “small” and which were “large”), I visualized the difference in MPG between the two groups with a boxplot. I then conducted a permutation test with 1,000 random shuffles to assess whether the observed difference in mean MPG could be due to chance. The results provided strong evidence against the null hypothesis, suggesting that the difference in fuel efficiency between small and large cars is unlikely to be due to random variation. This information can help consumers like myself make more informed decisions when choosing a car that offers better long-term fuel efficiency.</p>
+
+
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -171,6 +313,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     
