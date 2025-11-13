@@ -19,6 +19,8 @@ website:
             href: nytimes.html
           - text: "Project 3 - Car Data"
             href: cardata.html
+          - text: "Project 4 - Ethical Considerations"
+            href: ethicalConsiderations.html
           
           
 format:
