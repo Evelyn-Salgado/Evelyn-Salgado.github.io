@@ -21,6 +21,8 @@ website:
             href: cardata.html
           - text: "Project 4 - Ethical Considerations"
             href: ethicalConsiderations.html
+          - text: "Project 5 - Policing Patterns Across Cities"
+            href: projectsql.html
           
           
 format:
