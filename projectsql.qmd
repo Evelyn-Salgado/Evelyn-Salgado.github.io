@@ -330,3 +330,7 @@ ggplot(format_piv, aes(x = outcome, y = rate, color = subject_race)) +
 ```
 
 **Conclusion**: Overall, this analysis helped highlight meaningful differences in policing patterns across the three cities. Even though Black and Hispanic drivers were not always the most frequently stopped, they often faced higher citation or arrest rates than white drivers. The visualizations illustrated these patterns by separating citation and arrest outcomes and showing how these rates vary by race within and across cities. It is important to note that the analysis was limited because the San Antonio data set did not include citation information, which restricts direct comparisons. Overall, the results suggest that enforcement practices are not applied evenly and that racial groups experience different outcomes even under similar stop conditions.
+
+```{r}
+dbDisconnect(con_traffic, shutdown = TRUE)
+```
