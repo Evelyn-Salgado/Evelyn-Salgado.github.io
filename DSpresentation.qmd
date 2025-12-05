@@ -30,8 +30,6 @@ execute:
 
 -   The company kept this project private, aware it would spark backlash.
 
-![](targetlogo.png){fig-align="center" width="80%"}
-
 ## The incident  
 
 -   Based on Charles Duhhig's New York Times Magazine piece, "How Companies Learn Your Secrets."
