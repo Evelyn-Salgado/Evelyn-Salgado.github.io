@@ -23,6 +23,8 @@ website:
             href: ethicalConsiderations.html
           - text: "Project 5 - Policing Patterns Across Cities"
             href: projectsql.html
+          - text: "DS Presentation"
+          - href: DSpresentation.html
           
           
 format:

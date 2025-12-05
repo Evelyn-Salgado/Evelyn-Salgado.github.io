@@ -1,0 +1,73 @@
+---
+title: "Target's Predictive Pregnancy Model"
+author: "Evelyn Salgado"
+subtitle: "December 5, 2025"
+format:
+  revealjs:
+    scrollable: true
+    slide-number: true
+    show-slide-number: all
+    embed-resources: true
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+## Overview 
+
+-   Target used customer purchase data to predict when female shoppers were pregnant in order to influence shopping habits early.
+
+-   Main issue: Target customers were unaware that their data was being used to infer intimate, health-related information.
+
+-   The case raises questions about a corporation’s ethical obligations even when their actions are technically legal.
+
+## Background: Target's Model 
+
+-   Target statistician Andrew Pole was tasked with determining whether they could identify pregnancy from purchase history.
+
+-   Their model inferred pregnancy and due date using shopping patterns like that of vitamins and lotions.
+
+-   The company kept this project private, aware it would spark backlash.
+
+![](targetlogo.png){fig-align="center" width="80%"}
+
+## The incident  
+
+-   Based on Charles Duhhig's New York Times Magazine piece, "How Companies Learn Your Secrets."
+
+-   A father confronted Target after his teenage daughter received targeted coupons for baby products.
+
+-   The model had correctly inferred her pregnancy [before her family knew.]{.underline}
+
+-   This revealed the existence of Target's pregnancy prediction algorithm and sparked scrutiny from the public.
+
+## Ethical Analysis 
+
+As of Target’s privacy policy, the company is technically allowed broad data collection, including a wide range of information from any guest who uses in-store, online, or in‑app services.
+
+While these practices are covered in Target’s privacy policy, it’s unlikely customers knew their data could be used to infer such personal information. At the time of the incident, shoppers probably did not explicitly agree to these terms.
+
+## Ethical Standards It Fails 
+
+#### Contrasted against the *Data Values and Principles Manifesto* Target's predictive model violated key principles...
+
+-   Served corporate profit, not customer benefit
+
+    -   The data was not used to improve the life of users and communities. Instead, it primarily served the company's interest.
+
+-   Lacked transparency and true consent
+
+    -   Customers were unable to make informed decisions of future use of their data as Target did not disclose exactly how the data was used or that the model existed.
+
+    -   Insights were used to manipulate consumer behavior.
+
+## Summary 
+
+This case shows how predictive analytics can cross ethical boundaries even when legal. Shoppers lost privacy and autonomy, while Target gained commercially. It raises important questions about a company’s ethical responsibilities in using consumer data.
+
+## References 
+
+Duhigg, C. (2012, February 16). How companies learn your secrets. *The New York Times Magazine.* <https://www.nytimes.com/2012/02/19/magazine/shopping-habits.html?unlocked_article_code=1.6U4.nLSt.-yehBjKHEmPW&smid=url-share>
+
+Target Corporation. (2025, June 30). *Privacy Policy* [https://www.target.com/c/target-privacy-policy/-/N-4sr7p](https://www.target.com/c/target-privacy-policy/-/N-4sr7p?utm_source=chatgpt.com)
